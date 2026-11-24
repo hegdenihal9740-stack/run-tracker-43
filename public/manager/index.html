@@ -1,0 +1,1593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manager Software Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h2 id="sidebar-title" style="cursor: pointer;">Manager Software</h2>
+        </div>
+        <ul class="sidebar-menu">
+            <li class="menu-item has-sub-menu" data-page="purchases">
+                <span>Purchases</span>
+                <span class="arrow">▶</span>
+                <ul class="sub-menu">
+                    <li class="sub-menu-item" data-page="purchase-order">Purchase Order</li>
+                    <li class="sub-menu-item" data-page="purchase-invoice">Purchase Invoice</li>
+                    <li class="sub-menu-item" data-page="purchase-return">Purchase Return</li>
+                    <li class="sub-menu-item" data-page="purchase-payment">Purchase Payment</li>
+                </ul>
+            </li>
+            <li class="menu-item has-sub-menu" data-page="sales">
+                <span>Sales</span>
+                <span class="arrow">▶</span>
+                <ul class="sub-menu">
+                    <li class="sub-menu-item" data-page="sales-quotation">Sales Quotation</li>
+                    <li class="sub-menu-item" data-page="sales-invoice">Sales Invoice</li>
+                    <li class="sub-menu-item" data-page="sales-return">Sales Return</li>
+                    <li class="sub-menu-item" data-page="sales-payment">Sales Payment</li>
+                </ul>
+            </li>
+            <li class="menu-item" data-page="stock">
+                <span>Stock</span>
+            </li>
+            <li class="menu-item has-sub-menu" data-page="finance">
+                <span>Finance</span>
+                <span class="arrow">▶</span>
+                <ul class="sub-menu">
+                    <li class="sub-menu-item" data-page="entry">Entry</li>
+                    <li class="sub-menu-item" data-page="banking">Banking</li>
+                    <li class="sub-menu-item" data-page="pnl-report">P&L Report</li>
+                </ul>
+            </li>
+            <li class="menu-item has-sub-menu" data-page="hr">
+                <span>HR</span>
+                <span class="arrow">▶</span>
+                <ul class="sub-menu">
+                    <li class="sub-menu-item" data-page="hiring">Hiring</li>
+                    <li class="sub-menu-item" data-page="performance">Performance</li>
+                    <li class="sub-menu-item" data-page="payroll">Payroll</li>
+                    <li class="sub-menu-item" data-page="records">Records</li>
+                </ul>
+            </li>
+            <li class="menu-item" data-page="marketing">
+                <span>Marketing</span>
+            </li>
+            <li class="menu-item" data-page="operations">
+                <span>Operations</span>
+            </li>
+            <li class="menu-item" data-page="technical">
+                <span>Technical</span>
+            </li>
+            <li class="menu-item" data-page="google-workspace">
+                <span>Google Workspace</span>
+            </li>
+            <li class="menu-item has-sub-menu" data-page="about">
+                <span>About</span>
+                <span class="arrow">▶</span>
+                <ul class="sub-menu">
+                    <li class="sub-menu-item" data-page="admin">Admin</li>
+                    <li class="sub-menu-item" data-page="logout">Logout</li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="main-content">
+        <!-- Top Header -->
+        <div class="top-header">
+            <div class="header-left">
+                <h1 id="page-title">Purchases</h1>
+                <input type="text" id="search-bar" placeholder="Search...">
+            </div>
+            <div class="header-right">
+                <button class="btn-save">Save</button>
+            </div>
+        </div>
+
+        <!-- Dashboard Content -->
+        <div id="content-area">
+            <!-- Dashboard Page -->
+            <div id="dashboard" class="page active">
+                <!-- Top Summary Cards -->
+                <div class="dashboard-summary-cards">
+                    <div class="summary-card">
+                        <h3>Total Sales</h3>
+                        <p class="value">$0.00</p>
+                        <small>Updated</small>
+                    </div>
+                    <div class="summary-card">
+                        <h3>Total Purchases</h3>
+                        <p class="value">$0.00</p>
+                        <small>Updated</small>
+                    </div>
+                    <div class="summary-card">
+                        <h3>Outstanding Invoices</h3>
+                        <p class="value">$0.00</p>
+                        <small>Updated</small>
+                    </div>
+                    <div class="summary-card">
+                        <h3>Inventory Value</h3>
+                        <p class="value">$0.00</p>
+                        <small>Updated</small>
+                    </div>
+                </div>
+
+                <!-- Main Dashboard Content -->
+                <div class="dashboard-main">
+                    <!-- Left Section: Department Performance Chart -->
+                    <div class="chart-section">
+                        <h3>Department Performance</h3>
+                        <div class="chart-container">
+                            <canvas id="departmentChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Right Section: Stacked Cards -->
+                    <div class="cards-section">
+                        <div class="highlight-card">
+                            <h3>Total Earnings</h3>
+                            <p class="large-value">$0.00</p>
+                            <small>Monthly earnings</small>
+                        </div>
+                        <div class="metric-card">
+                            <h3>Total Income</h3>
+                            <p class="value">$0.00</p>
+                            <small>Current month</small>
+                        </div>
+                        <div class="metric-card">
+                            <h3>Total Expenses</h3>
+                            <p class="value">$0.00</p>
+                            <small>Current month</small>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bottom Section -->
+                <div class="dashboard-bottom">
+                    <div class="analysis-card">
+                        <h3>Client Analysis</h3>
+                        <div class="client-icons">
+                            <div class="client-group">
+                                <i class="fas fa-female"></i>
+                                <span>Female Clients</span>
+                            </div>
+                            <div class="client-group">
+                                <i class="fas fa-male"></i>
+                                <span>Male Clients</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="progress-card">
+                        <h3>Task Completion</h3>
+                        <div class="progress-circle">
+                            <svg width="100" height="100">
+                                <circle cx="50" cy="50" r="40" stroke="#e9ecef" stroke-width="8" fill="none"/>
+                                <circle cx="50" cy="50" r="40" stroke="#1e3a8a" stroke-width="8" fill="none" stroke-dasharray="251.2" stroke-dashoffset="75.36"/>
+                            </svg>
+                            <div class="progress-text">70%</div>
+                        </div>
+                        <small>On average, 7 out of 10 tasks is done</small>
+                    </div>
+                </div>
+
+                <!-- Chart.js CDN -->
+                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                <!-- Font Awesome for icons -->
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+            </div>
+
+            <!-- Placeholder Pages -->
+            <div id="purchases" class="page">
+                <h2>Purchases Page</h2>
+            </div>
+            <div id="sales" class="page">
+                <h2>Sales Page</h2>
+            </div>
+            <div id="stock" class="page">
+                <header class="dashboard-header">
+                </header>
+                <section class="top-section">
+                    <div class="date-picker">
+                        <label for="from-date">FROM</label>
+                        <input type="date" id="from-date">
+                        <label for="to-date">TO</label>
+                        <input type="date" id="to-date">
+                    </div>
+                    <div class="dropdown category-dropdown">
+                        <button class="dropdown-btn">Select Category <span class="arrow">▼</span></button>
+                        <div class="dropdown-content">
+                            <a href="#">Fruits</a>
+                            <a href="#">Vegetables</a>
+                            <a href="#">Beverages</a>
+                        </div>
+                    </div>
+                    <div class="dropdown stock-filter-dropdown">
+                        <button class="dropdown-btn">Stock Filter <span class="arrow">▼</span></button>
+                        <div class="dropdown-content">
+                            <a href="#">Low Stock</a>
+                            <a href="#">In Stock</a>
+                            <a href="#">Out of Stock</a>
+                        </div>
+                    </div>
+                    <div class="dropdown report-dropdown">
+                        <button class="dropdown-btn">Report <span class="arrow">▼</span></button>
+                        <div class="dropdown-content">
+                            <a href="#">Daily Report</a>
+                            <a href="#">Weekly Report</a>
+                            <a href="#">Monthly Report</a>
+                        </div>
+                    </div>
+                    <button class="btn btn-solid">Add Item</button>
+                </section>
+                <section class="summary-cards">
+                    <div class="card">
+                        <h3>Purchase Rate</h3>
+                        <p class="value danger">Rs. 50</p>
+                    </div>
+                    <div class="card">
+                        <h3>Sales Rate</h3>
+                        <p class="value success">Rs. 60</p>
+                    </div>
+                    <div class="card">
+                        <h3>Total Quantity</h3>
+                        <p class="value neutral">1000</p>
+                    </div>
+                </section>
+                <section class="inventory-section">
+                    <div class="card">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr class="totals-row">
+                                        <th>Total Items: 10</th>
+                                        <th>Total: 0 KG</th>
+                                        <th>Total: 3030 KG</th>
+                                        <th>Total: 1390 KG</th>
+                                        <th>Total: 4310 KG</th>
+                                        <th>Total: 2220 KG</th>
+                                        <th>Total: 0 KG</th>
+                                        <th>Total: 2200 KG</th>
+                                        <th>N/A</th>
+                                    </tr>
+                                    <tr>
+                                        <th>Product Name</th>
+                                        <th>Opening Stock</th>
+                                        <th>Purchase</th>
+                                        <th>Purchase Return</th>
+                                        <th>Total Stock</th>
+                                        <th>Sales</th>
+                                        <th>Sales Return</th>
+                                        <th>Closing Stock</th>
+                                        <th>Remark</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Pineapple</td>
+                                        <td>26 August 2023</td>
+                                        <td>100 KG</td>
+                                        <td>10 KG</td>
+                                        <td>0</td>
+                                        <td>110 KG</td>
+                                        <td>60 KG</td>
+                                        <td>0</td>
+                                        <td>50 KG</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Apple</td>
+                                        <td>26 August 2023</td>
+                                        <td>400 KG</td>
+                                        <td>40 KG</td>
+                                        <td>0</td>
+                                        <td>440 KG</td>
+                                        <td>200 KG</td>
+                                        <td>0</td>
+                                        <td>240 KG</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Banana</td>
+                                        <td>26 August 2023</td>
+                                        <td>600 KG</td>
+                                        <td>300 KG</td>
+                                        <td>0</td>
+                                        <td>900 KG</td>
+                                        <td>500 KG</td>
+                                        <td>0</td>
+                                        <td>400 KG</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Mango</td>
+                                        <td>26 August 2023</td>
+                                        <td>800 KG</td>
+                                        <td>500 KG</td>
+                                        <td>0</td>
+                                        <td>1300 KG</td>
+                                        <td>600 KG</td>
+                                        <td>0</td>
+                                        <td>700 KG</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Orange</td>
+                                        <td>26 August 2023</td>
+                                        <td>300 KG</td>
+                                        <td>150 KG</td>
+                                        <td>0</td>
+                                        <td>450 KG</td>
+                                        <td>200 KG</td>
+                                        <td>0</td>
+                                        <td>250 KG</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Green Apple</td>
+                                        <td>26 August 2023</td>
+                                        <td>80 KG</td>
+                                        <td>20 KG</td>
+                                        <td>0</td>
+                                        <td>100 KG</td>
+                                        <td>60 KG</td>
+                                        <td>0</td>
+                                        <td>40 KG</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Papaya</td>
+                                        <td>26 August 2023</td>
+                                        <td>500 KG</td>
+                                        <td>200 KG</td>
+                                        <td>0</td>
+                                        <td>700 KG</td>
+                                        <td>400 KG</td>
+                                        <td>0</td>
+                                        <td>300 KG</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Lichi</td>
+                                        <td>26 August 2023</td>
+                                        <td>100 KG</td>
+                                        <td>40 KG</td>
+                                        <td>0</td>
+                                        <td>140 KG</td>
+                                        <td>80 KG</td>
+                                        <td>0</td>
+                                        <td>60 KG</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Plum</td>
+                                        <td>26 August 2023</td>
+                                        <td>50 KG</td>
+                                        <td>10 KG</td>
+                                        <td>0</td>
+                                        <td>60 KG</td>
+                                        <td>40 KG</td>
+                                        <td>0</td>
+                                        <td>20 KG</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Coconut Water</td>
+                                        <td>26 August 2023</td>
+                                        <td>100 Piece</td>
+                                        <td>120 Piece</td>
+                                        <td>0</td>
+                                        <td>220 Piece</td>
+                                        <td>80 Piece</td>
+                                        <td>0</td>
+                                        <td>140 Piece</td>
+                                        <td></td>
+                                    </tr>
+                            </tbody>
+                        </table>
+                        <button class="btn btn-solid add-requirement-btn">+</button>
+                    </div>
+                    </div>
+                </section>
+            </div>
+            <div id="finance" class="page">
+                <h2>Finance Page</h2>
+            </div>
+            <div id="hr" class="page">
+                <h2>HR Page</h2>
+            </div>
+            <div id="hiring" class="page">
+                <div class="hiring-container">
+                    <div class="tabs">
+                        <button class="tab-button" data-tab="hiring-tab">Hiring</button>
+                        <button class="tab-button active" data-tab="existing-tab">Existing</button>
+                        <button class="tab-button" data-tab="lock-tab">Lock</button>
+                        <button class="small-green-btn" id="green-btn">+</button>
+                    </div>
+                    <div id="hiring-tab" class="tab-content">
+                        <h2>Job Requirements</h2>
+                        <table class="hiring-table">
+                            <thead>
+                                <tr>
+                                    <th>Sl No</th>
+                                    <th>Job Title</th>
+                                    <th>Department</th>
+                                    <th>Vacancies</th>
+                                    <th>Employment Type</th>
+                                    <th>Work Location</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Software Engineer</td>
+                                    <td>IT</td>
+                                    <td>2</td>
+                                    <td>Full-time</td>
+                                    <td>Office</td>
+                                    <td>Open</td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>Marketing Manager</td>
+                                    <td>Marketing</td>
+                                    <td>1</td>
+                                    <td>Full-time</td>
+                                    <td>Office</td>
+                                    <td>Open</td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>Accountant</td>
+                                    <td>Finance</td>
+                                    <td>1</td>
+                                    <td>Full-time</td>
+                                    <td>Office</td>
+                                    <td>Closed</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="existing-tab" class="tab-content active">
+                        <h2>Existing Employees</h2>
+                        <table class="existing-table">
+                            <thead>
+                                <tr>
+                                    <th>Employee ID</th>
+                                    <th>Name</th>
+                                    <th>Department</th>
+                                    <th>Designation</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>EMP001</td>
+                                    <td>John Doe</td>
+                                    <td>IT</td>
+                                    <td>Software Engineer</td>
+                                    <td>Active</td>
+                                </tr>
+                                <tr>
+                                    <td>EMP002</td>
+                                    <td>Jane Smith</td>
+                                    <td>Marketing</td>
+                                    <td>Marketing Manager</td>
+                                    <td>Active</td>
+                                </tr>
+                                <tr>
+                                    <td>EMP003</td>
+                                    <td>Bob Johnson</td>
+                                    <td>Finance</td>
+                                    <td>Accountant</td>
+                                    <td>Active</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="lock-tab" class="tab-content">
+                        <h2>Lock Functionality</h2>
+                        <p>Lock functionality coming soon.</p>
+                    </div>
+                </div>
+                <!-- Create Job Requirement Form -->
+                <div id="create-job-form" class="create-job-form" style="display: none;">
+                    <div class="form-container">
+                        <h1>Create Job Requirement</h1>
+                        <p>Fill in the details below to create a new job requirement that will be sent to Head Office for approval.</p>
+                        <form id="job-requirement-form">
+                            <div class="form-row">
+                                <div class="form-column">
+                                    <div class="form-group">
+                                        <label for="job-title">Job Title *</label>
+                                        <input type="text" id="job-title" name="job-title" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="department">Department *</label>
+                                        <select id="department" name="department" required>
+                                            <option value="">Select Department</option>
+                                            <option value="IT">IT</option>
+                                            <option value="Marketing">Marketing</option>
+                                            <option value="Finance">Finance</option>
+                                            <option value="HR">HR</option>
+                                            <option value="Operations">Operations</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="vacancies">Number of Vacancies *</label>
+                                        <input type="number" id="vacancies" name="vacancies" min="1" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="employment-type">Employment Type *</label>
+                                        <select id="employment-type" name="employment-type" required>
+                                            <option value="">Select Employment Type</option>
+                                            <option value="Full-time">Full-time</option>
+                                            <option value="Part-time">Part-time</option>
+                                            <option value="Contract">Contract</option>
+                                            <option value="Internship">Internship</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="work-location">Work Location *</label>
+                                        <input type="text" id="work-location" name="work-location" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="joining-date">Preferred Joining Date</label>
+                                        <input type="date" id="joining-date" name="joining-date">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="experience">Required Experience *</label>
+                                        <input type="text" id="experience" name="experience" placeholder="e.g., 3 years" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="skills">Required Skills *</label>
+                                        <textarea id="skills" name="skills" rows="3" placeholder="Comma separated skills" required></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="responsibilities">Job Responsibilities *</label>
+                                        <textarea id="responsibilities" name="responsibilities" rows="4" required></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-column">
+                                    <div class="form-group">
+                                        <label for="qualification">Qualification *</label>
+                                        <input type="text" id="qualification" name="qualification" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="reporting-manager">Reporting Manager</label>
+                                        <input type="text" id="reporting-manager" name="reporting-manager">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="basic-salary">Basic Salary</label>
+                                        <input type="number" id="basic-salary" name="basic-salary" step="0.01">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="allowances">Allowances</label>
+                                        <input type="number" id="allowances" name="allowances" step="0.01">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="deductions">Deductions</label>
+                                        <input type="number" id="deductions" name="deductions" step="0.01">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="total-ctc">Total CTC</label>
+                                        <input type="number" id="total-ctc" name="total-ctc" step="0.01">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="payment-mode">Payment Mode</label>
+                                        <select id="payment-mode" name="payment-mode">
+                                            <option value="Bank Transfer">Bank Transfer</option>
+                                            <option value="Cash">Cash</option>
+                                            <option value="Cheque">Cheque</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="status">Status</label>
+                                        <select id="status" name="status">
+                                            <option value="Draft">Draft</option>
+                                            <option value="Pending">Pending</option>
+                                            <option value="Approved">Approved</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="state">State of the Employee</label>
+                                        <input type="text" id="state" name="state">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="documents">Required Documents</label>
+                                        <textarea id="documents" name="documents" rows="3" placeholder="Comma separated documents"></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="notes">Additional Notes</label>
+                                        <textarea id="notes" name="notes" rows="3"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-actions">
+                                <button type="submit" class="btn-submit-head-office">Submit to Head Office</button>
+                                <button type="button" id="cancel-btn" class="cancel-btn">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div id="marketing" class="page">
+                <h2>Marketing Page</h2>
+            </div>
+            <div id="operations" class="page">
+                <h2>Operations Page</h2>
+            </div>
+            <div id="technical" class="page">
+                <h2>Technical Page</h2>
+            </div>
+            <div id="google-workspace" class="page">
+                <h2>Google Workspace Page</h2>
+            </div>
+            <div id="about" class="page">
+                <div class="about-content">
+                    <h2>About Page</h2>
+                    <p>Welcome to the Manager Software Dashboard. This application helps you manage various aspects of your business including purchases, sales, stock, finance, HR, marketing, operations, technical support, and Google Workspace integration.</p>
+                </div>
+                <div class="about-sidebar">
+                    <div class="sidebar-item" data-action="admin">Admin</div>
+                    <div class="sidebar-item" data-action="logout">Logout</div>
+                </div>
+            </div>
+
+            <!-- Admin Page -->
+            <div id="admin" class="page">
+                <h2>Admin Panel</h2>
+                <p>Manage system settings, users, and configurations.</p>
+                <div class="admin-options">
+                    <button class="admin-btn">User Management</button>
+                    <button class="admin-btn">System Settings</button>
+                    <button class="admin-btn">Reports</button>
+                </div>
+            </div>
+
+            <!-- Logout Page -->
+            <div id="logout" class="page">
+                <h2>Logout</h2>
+                <p>Are you sure you want to logout?</p>
+                <div class="logout-actions">
+                    <button class="btn-confirm-logout">Yes, Logout</button>
+                    <button class="btn-cancel-logout">Cancel</button>
+                </div>
+            </div>
+
+            <!-- Sub-menu Pages -->
+            <div id="purchase-order" class="page">
+                <div class="page-header">
+                    <h1>Purchase Order</h1>
+                    <p>Create a new purchase order for vendor supplies</p>
+                </div>
+
+                <form class="invoice-form">
+                    <div class="form-row">
+                        <div class="form-column">
+                            <div class="form-group">
+                                <label for="purchase-order-number">Purchase Order Number</label>
+                                <input type="text" id="purchase-order-number" placeholder="Enter purchase order number">
+                            </div>
+                            <div class="form-group">
+                                <label for="sales-quotation-number-order">Sales Quotation Number</label>
+                                <input type="text" id="sales-quotation-number-order" placeholder="Enter sales quotation number">
+                            </div>
+                            <div class="form-group">
+                                <label for="purchase-order-date">Purchase Order Date</label>
+                                <input type="date" id="purchase-order-date">
+                            </div>
+                            <div class="form-group">
+                                <label for="vendor-name">Vendor Name</label>
+                                <input type="text" id="vendor-name" placeholder="Enter vendor name">
+                            </div>
+                        </div>
+                        <div class="form-column">
+                            <div class="form-group">
+                                <label for="special-note">Special Note</label>
+                                <textarea id="special-note" rows="4" placeholder="Special instructions, fragile items, handle carefully..."></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="payment-mode">Payment Mode</label>
+                                <select id="payment-mode">
+                                    <option value="" disabled selected>Select Payment Mode</option>
+                                    <option value="cash">Cash</option>
+                                    <option value="credit">Credit</option>
+                                    <option value="bank-transfer">Bank Transfer</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="totals-section">
+                    <div class="total-row grand-total">
+                        <span class="total-label">Grand Total</span>
+                        <span class="total-amount">$0.00</span>
+                    </div>
+                </div>
+
+                <div class="item-table-container">
+                    <table class="item-table">
+                        <thead>
+                            <tr>
+                                <th>Item Name</th>
+                                <th>Quantity</th>
+                                <th>Rate</th>
+                                <th>GST %</th>
+                                <th>Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input type="text" placeholder="Enter item name"></td>
+                                <td><input type="number" placeholder="0"></td>
+                                <td><input type="number" step="0.01" placeholder="0.00"></td>
+                                <td><input type="number" step="0.01" placeholder="0.00"></td>
+                                <td style="color: green;">$0.00</td>
+                            </tr>
+                            <tr>
+                                <td><input type="text" placeholder="Enter item name"></td>
+                                <td><input type="number" placeholder="0"></td>
+                                <td><input type="number" step="0.01" placeholder="0.00"></td>
+                                <td><input type="number" step="0.01" placeholder="0.00"></td>
+                                <td style="color: green;">$0.00</td>
+                            </tr>
+                            <tr>
+                                <td><input type="text" placeholder="Enter item name"></td>
+                                <td><input type="number" placeholder="0"></td>
+                                <td><input type="number" step="0.01" placeholder="0.00"></td>
+                                <td><input type="number" step="0.01" placeholder="0.00"></td>
+                                <td style="color: green;">$0.00</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div id="purchase-invoice" class="page">
+                <div class="page-header">
+                    <h1>Purchase Invoice</h1>
+                    <p>Create a new purchase invoice for suppliers</p>
+                </div>
+
+                <form class="invoice-form">
+                    <div class="form-row">
+                        <div class="form-column">
+                            <div class="form-group">
+                                <label for="invoice-number">Invoice Number</label>
+                                <input type="text" id="invoice-number" placeholder="Enter invoice number">
+                            </div>
+                            <div class="form-group">
+                                <label for="sales-quotation-number">Sales Quotation Number</label>
+                                <input type="text" id="sales-quotation-number" placeholder="Enter sales quotation number">
+                            </div>
+                            <div class="form-group">
+                                <label for="invoice-date">Invoice Date</label>
+                                <input type="date" id="invoice-date">
+                            </div>
+                            <div class="form-group">
+                                <label for="supplier-name">Supplier Name</label>
+                                <input type="text" id="supplier-name" placeholder="Enter supplier name">
+                            </div>
+                        </div>
+                        <div class="form-column">
+                            <div class="form-group">
+                                <label for="special-note">Special Note</label>
+                                <textarea id="special-note" rows="4" placeholder="Enter any special notes"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="payment-mode">Payment Mode</label>
+                                <select id="payment-mode">
+                                    <option value="" disabled selected>Select Payment Mode</option>
+                                    <option value="cash">Cash</option>
+                                    <option value="credit">Credit</option>
+                                    <option value="bank-transfer">Bank Transfer</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="totals-section">
+                    <div class="total-row grand-total">
+                        <span class="total-label">Grand Total</span>
+                        <span class="total-amount">$0.00</span>
+                    </div>
+                </div>
+
+                <div class="item-table-container">
+                    <table class="item-table">
+                        <thead>
+                            <tr>
+                                <th>Item Name</th>
+                                <th>Quantity</th>
+                                <th>Rate</th>
+                                <th>GST %</th>
+                                <th>Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input type="text" placeholder="Enter item name"></td>
+                                <td><input type="number" placeholder="0"></td>
+                                <td><input type="number" step="0.01" placeholder="0.00"></td>
+                                <td><input type="number" step="0.01" placeholder="0.00"></td>
+                                <td>$0.00</td>
+                            </tr>
+                            <tr>
+                                <td><input type="text" placeholder="Enter item name"></td>
+                                <td><input type="number" placeholder="0"></td>
+                                <td><input type="number" step="0.01" placeholder="0.00"></td>
+                                <td><input type="number" step="0.01" placeholder="0.00"></td>
+                                <td>$0.00</td>
+                            </tr>
+                            <tr>
+                                <td><input type="text" placeholder="Enter item name"></td>
+                                <td><input type="number" placeholder="0"></td>
+                                <td><input type="number" step="0.01" placeholder="0.00"></td>
+                                <td><input type="number" step="0.01" placeholder="0.00"></td>
+                                <td>$0.00</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div id="purchase-return" class="page">
+                <div class="page-header">
+                    <h1>Purchase Return</h1>
+                    <p>Create a new purchase return for suppliers</p>
+                </div>
+
+                <form class="invoice-form">
+                    <div class="form-row">
+                        <div class="form-column">
+                            <div class="form-group">
+                                <label for="purchase-return-number">Purchase Return Number</label>
+                                <input type="text" id="purchase-return-number" placeholder="Enter purchase return number">
+                            </div>
+                            <div class="form-group">
+                                <label for="purchase-return-number-return">Purchase Invoice Number</label>
+                                <input type="text" id="purchase-return-number-return" placeholder="Enter purchase invoice number">
+                            </div>
+                            <div class="form-group">
+                                <label for="purchase-return-date">Purchase Return Date</label>
+                                <input type="date" id="purchase-return-date">
+                            </div>
+                            <div class="form-group">
+                                <label for="vendor-name-return">Vendor Name</label>
+                                <input type="text" id="vendor-name-return" placeholder="Enter vendor name">
+                            </div>
+                        </div>
+                        <div class="form-column">
+                            <div class="form-group">
+                                <label for="special-note-return">Special Note</label>
+                                <textarea id="special-note-return" rows="4" placeholder="Special instructions, fragile items, handle carefully..."></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="payment-mode-return">Payment Mode</label>
+                                <select id="payment-mode-return">
+                                    <option value="" disabled selected>Select Payment Mode</option>
+                                    <option value="cash">Cash</option>
+                                    <option value="credit">Credit</option>
+                                    <option value="bank-transfer">Bank Transfer</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="totals-section">
+                    <div class="total-row grand-total">
+                        <span class="total-label">Grand Total</span>
+                        <span class="total-amount">$0.00</span>
+                    </div>
+                </div>
+
+                <div class="item-table-container">
+                    <table class="item-table">
+                        <thead>
+                            <tr>
+                                <th>Item Name</th>
+                                <th>Quantity</th>
+                                <th>Rate</th>
+                                <th>GST %</th>
+                                <th>Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input type="text" placeholder="Enter item name"></td>
+                                <td><input type="number" placeholder="0"></td>
+                                <td><input type="number" step="0.01" placeholder="0.00"></td>
+                                <td><input type="number" step="0.01" placeholder="0.00"></td>
+                                <td style="color: green;">$0.00</td>
+                            </tr>
+                            <tr>
+                                <td><input type="text" placeholder="Enter item name"></td>
+                                <td><input type="number" placeholder="0"></td>
+                                <td><input type="number" step="0.01" placeholder="0.00"></td>
+                                <td><input type="number" step="0.01" placeholder="0.00"></td>
+                                <td style="color: green;">$0.00</td>
+                            </tr>
+                            <tr>
+                                <td><input type="text" placeholder="Enter item name"></td>
+                                <td><input type="number" placeholder="0"></td>
+                                <td><input type="number" step="0.01" placeholder="0.00"></td>
+                                <td><input type="number" step="0.01" placeholder="0.00"></td>
+                                <td style="color: green;">$0.00</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div id="purchase-payment" class="page">
+                <div class="page-header">
+                    <h1>Purchase Payment</h1>
+                    <p>Manage purchase payments for vendors</p>
+                </div>
+
+                <div class="totals-section">
+                    <table class="table text-center">
+                        <tbody>
+                            <tr id="grandTotalRow">
+                                <th colspan="3">Grand Total</th>
+                                <td class="total-amount">0.00</td>
+                                <td class="paid-amount">0.00</td>
+                                <td class="balance-amount">0.00</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="item-table-container">
+                    <div class="table-responsive">
+                        <table class="table table-striped text-center" id="paymentTable">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Vendor ID</th>
+                                    <th>Vendor Name</th>
+                                    <th>Total Amount</th>
+                                    <th>Paid Amount</th>
+                                    <th>Balance Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><input type="date" class="form"></td>
+                                    <td><input type="text" class="form"></td>
+                                    <td><input type="text" class="form"></td>
+                                    <td><input type="number" step="0.01" class="form amount"></td>
+                                    <td><input type="number" step="0.01" class="form amount"></td>
+                                    <td><input type="number" step="0.01" class="form amount" readonly></td>
+                                </tr>
+                                <tr>
+                                    <td><input type="date" class="form"></td>
+                                    <td><input type="text" class="form"></td>
+                                    <td><input type="text" class="form"></td>
+                                    <td><input type="number" step="0.01" class="form amount"></td>
+                                    <td><input type="number" step="0.01" class="form amount"></td>
+                                    <td><input type="number" step="0.01" class="form amount" readonly></td>
+                                </tr>
+                                <tr>
+                                    <td><input type="date" class="form"></td>
+                                    <td><input type="text" class="form"></td>
+                                    <td><input type="text" class="form"></td>
+                                    <td><input type="number" step="0.01" class="form amount"></td>
+                                    <td><input type="number" step="0.01" class="form amount"></td>
+                                    <td><input type="number" step="0.01" class="form amount" readonly></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+
+            </div>
+            <div id="sales-quotation" class="page">
+                <div class="page-header">
+                    <h1>Sales Quotation</h1>
+                    <p>Create a new sales quotation for customers</p>
+                </div>
+
+                <form class="invoice-form">
+                    <div class="form-row">
+                        <div class="form-column">
+                            <div class="form-group">
+                                <label for="sales-quotation-number">Quotation Number</label>
+                                <input type="text" id="sales-quotation-number" placeholder="Enter quotation number">
+                            </div>
+                            <div class="form-group">
+                                <label for="purchase-order-number-quotation">Purchase Order Number</label>
+                                <input type="text" id="purchase-order-number-quotation" placeholder="Enter purchase order number">
+                            </div>
+                            <div class="form-group">
+                                <label for="sales-quotation-date">Quotation Date</label>
+                                <input type="date" id="sales-quotation-date">
+                            </div>
+                            <div class="form-group">
+                                <label for="customer-name-quotation">Customer Name</label>
+                                <input type="text" id="customer-name-quotation" placeholder="Enter customer name">
+                            </div>
+                        </div>
+                        <div class="form-column">
+                            <div class="form-group">
+                                <label for="special-note-quotation">Special Note</label>
+                                <textarea id="special-note-quotation" rows="4" placeholder="Special instructions, fragile items, handle carefully..."></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="payment-mode-quotation">Payment Mode</label>
+                                <select id="payment-mode-quotation">
+                                    <option value="" disabled selected>Select Payment Mode</option>
+                                    <option value="cash">Cash</option>
+                                    <option value="credit">Credit</option>
+                                    <option value="bank-transfer">Bank Transfer</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="totals-section">
+                    <div class="total-row grand-total">
+                        <span class="total-label">Grand Total</span>
+                        <span class="total-amount">$0.00</span>
+                    </div>
+                </div>
+
+                <div class="item-table-container">
+                    <table class="item-table">
+                        <thead>
+                            <tr>
+                                <th>Item Name</th>
+                                <th>Quantity</th>
+                                <th>Rate</th>
+                                <th>GST %</th>
+                                <th>Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input type="text" placeholder="Enter item name"></td>
+                                <td><input type="number" placeholder="0"></td>
+                                <td><input type="number" step="0.01" placeholder="0.00"></td>
+                                <td><input type="number" step="0.01" placeholder="0.00"></td>
+                                <td style="color: green;">$0.00</td>
+                            </tr>
+                            <tr>
+                                <td><input type="text" placeholder="Enter item name"></td>
+                                <td><input type="number" placeholder="0"></td>
+                                <td><input type="number" step="0.01" placeholder="0.00"></td>
+                                <td><input type="number" step="0.01" placeholder="0.00"></td>
+                                <td style="color: green;">$0.00</td>
+                            </tr>
+                            <tr>
+                                <td><input type="text" placeholder="Enter item name"></td>
+                                <td><input type="number" placeholder="0"></td>
+                                <td><input type="number" step="0.01" placeholder="0.00"></td>
+                                <td><input type="number" step="0.01" placeholder="0.00"></td>
+                                <td style="color: green;">$0.00</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div id="sales-invoice" class="page">
+                <div class="page-header">
+                    <h1>Sales Invoice</h1>
+                    <p>Create a new sales invoice for customers</p>
+                </div>
+
+                <form class="invoice-form">
+                    <div class="form-row">
+                        <div class="form-column">
+                            <div class="form-group">
+                                <label for="sales-invoice-number">Invoice Number</label>
+                                <input type="text" id="sales-invoice-number" placeholder="Enter invoice number">
+                            </div>
+                            <div class="form-group">
+                                <label for="purchase-invoice-number">Purchase Invoice Number</label>
+                                <input type="text" id="purchase-invoice-number" placeholder="Enter purchase invoice number">
+                            </div>
+                            <div class="form-group">
+                                <label for="sales-invoice-date">Invoice Date</label>
+                                <input type="date" id="sales-invoice-date">
+                            </div>
+                            <div class="form-group">
+                                <label for="customer-name">Customer Name</label>
+                                <input type="text" id="customer-name" placeholder="Enter customer name">
+                            </div>
+                        </div>
+                        <div class="form-column">
+                            <div class="form-group">
+                                <label for="special-note-sales">Special Note</label>
+                                <textarea id="special-note-sales" rows="4" placeholder="Enter any special notes"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="payment-mode-sales">Payment Mode</label>
+                                <select id="payment-mode-sales">
+                                    <option value="" disabled selected>Select Payment Mode</option>
+                                    <option value="cash">Cash</option>
+                                    <option value="credit">Credit</option>
+                                    <option value="bank-transfer">Bank Transfer</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="totals-section">
+                    <div class="total-row grand-total">
+                        <span class="total-label">Grand Total</span>
+                        <span class="total-amount">$0.00</span>
+                    </div>
+                </div>
+
+                <div class="item-table-container">
+                    <table class="item-table">
+                        <thead>
+                            <tr>
+                                <th>Item Name</th>
+                                <th>Quantity</th>
+                                <th>Rate</th>
+                                <th>GST %</th>
+                                <th>Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input type="text" placeholder="Enter item name"></td>
+                                <td><input type="number" placeholder="0"></td>
+                                <td><input type="number" step="0.01" placeholder="0.00"></td>
+                                <td><input type="number" step="0.01" placeholder="0.00"></td>
+                                <td>$0.00</td>
+                            </tr>
+                            <tr>
+                                <td><input type="text" placeholder="Enter item name"></td>
+                                <td><input type="number" placeholder="0"></td>
+                                <td><input type="number" step="0.01" placeholder="0.00"></td>
+                                <td><input type="number" step="0.01" placeholder="0.00"></td>
+                                <td>$0.00</td>
+                            </tr>
+                            <tr>
+                                <td><input type="text" placeholder="Enter item name"></td>
+                                <td><input type="number" placeholder="0"></td>
+                                <td><input type="number" step="0.01" placeholder="0.00"></td>
+                                <td><input type="number" step="0.01" placeholder="0.00"></td>
+                                <td>$0.00</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div id="sales-return" class="page">
+                <div class="page-header">
+                    <h1>Sales Return</h1>
+                    <p>Create a new sales return for customers</p>
+                </div>
+
+                <form class="invoice-form">
+                    <div class="form-row">
+                        <div class="form-column">
+                            <div class="form-group">
+                                <label for="sales-return-number">Sales Return Number</label>
+                                <input type="text" id="sales-return-number" placeholder="Enter sales return number">
+                            </div>
+                            <div class="form-group">
+                                <label for="sales-invoice-number-return">Sales Invoice Number</label>
+                                <input type="text" id="sales-invoice-number-return" placeholder="Enter sales invoice number">
+                            </div>
+                            <div class="form-group">
+                                <label for="sales-return-date">Sales Return Date</label>
+                                <input type="date" id="sales-return-date">
+                            </div>
+                            <div class="form-group">
+                                <label for="customer-name-return">Customer Name</label>
+                                <input type="text" id="customer-name-return" placeholder="Enter customer name">
+                            </div>
+                        </div>
+                        <div class="form-column">
+                            <div class="form-group">
+                                <label for="special-note-return-sales">Special Note</label>
+                                <textarea id="special-note-return-sales" rows="4" placeholder="Special instructions, fragile items, handle carefully..."></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="payment-mode-return-sales">Payment Mode</label>
+                                <select id="payment-mode-return-sales">
+                                    <option value="" disabled selected>Select Payment Mode</option>
+                                    <option value="cash">Cash</option>
+                                    <option value="credit">Credit</option>
+                                    <option value="bank-transfer">Bank Transfer</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="totals-section">
+                    <div class="total-row grand-total">
+                        <span class="total-label">Grand Total</span>
+                        <span class="total-amount">$0.00</span>
+                    </div>
+                </div>
+
+                <div class="item-table-container">
+                    <table class="item-table">
+                        <thead>
+                            <tr>
+                                <th>Item Name</th>
+                                <th>Quantity</th>
+                                <th>Rate</th>
+                                <th>GST %</th>
+                                <th>Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input type="text" placeholder="Enter item name"></td>
+                                <td><input type="number" placeholder="0"></td>
+                                <td><input type="number" step="0.01" placeholder="0.00"></td>
+                                <td><input type="number" step="0.01" placeholder="0.00"></td>
+                                <td style="color: green;">$0.00</td>
+                            </tr>
+                            <tr>
+                                <td><input type="text" placeholder="Enter item name"></td>
+                                <td><input type="number" placeholder="0"></td>
+                                <td><input type="number" step="0.01" placeholder="0.00"></td>
+                                <td><input type="number" step="0.01" placeholder="0.00"></td>
+                                <td style="color: green;">$0.00</td>
+                            </tr>
+                            <tr>
+                                <td><input type="text" placeholder="Enter item name"></td>
+                                <td><input type="number" placeholder="0"></td>
+                                <td><input type="number" step="0.01" placeholder="0.00"></td>
+                                <td><input type="number" step="0.01" placeholder="0.00"></td>
+                                <td style="color: green;">$0.00</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div id="sales-payment" class="page">
+                <div class="page-header">
+                    <h1>Sales Payment</h1>
+                    <p>Manage sales payments for customers</p>
+                </div>
+
+                <div class="totals-section">
+                    <table class="table text-center">
+                        <tbody>
+                            <tr id="grandTotalRow">
+                                <th colspan="3">Grand Total</th>
+                                <td class="total-amount">0.00</td>
+                                <td class="paid-amount">0.00</td>
+                                <td class="balance-amount">0.00</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="item-table-container">
+                    <div class="table-responsive">
+                        <table class="table table-striped text-center" id="paymentTable">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Customer ID</th>
+                                    <th>Customer Name</th>
+                                    <th>Total Amount</th>
+                                    <th>Paid Amount</th>
+                                    <th>Balance Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><input type="date" class="form"></td>
+                                    <td><input type="text" class="form"></td>
+                                    <td><input type="text" class="form"></td>
+                                    <td><input type="number" step="0.01" class="form amount"></td>
+                                    <td><input type="number" step="0.01" class="form amount"></td>
+                                    <td><input type="number" step="0.01" class="form amount" readonly></td>
+                                </tr>
+                                <tr>
+                                    <td><input type="date" class="form"></td>
+                                    <td><input type="text" class="form"></td>
+                                    <td><input type="text" class="form"></td>
+                                    <td><input type="number" step="0.01" class="form amount"></td>
+                                    <td><input type="number" step="0.01" class="form amount"></td>
+                                    <td><input type="number" step="0.01" class="form amount" readonly></td>
+                                </tr>
+                                <tr>
+                                    <td><input type="date" class="form"></td>
+                                    <td><input type="text" class="form"></td>
+                                    <td><input type="text" class="form"></td>
+                                    <td><input type="number" step="0.01" class="form amount"></td>
+                                    <td><input type="number" step="0.01" class="form amount"></td>
+                                    <td><input type="number" step="0.01" class="form amount" readonly></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+
+            </div>
+            <div id="entry" class="page">
+                <h2>Entry Page</h2>
+            </div>
+            <div id="banking" class="page">
+                <h2>Banking Page</h2>
+            </div>
+            <div id="pnl-report" class="page">
+                <h2>P&L Report Page</h2>
+            </div>
+            <div id="performance" class="page">
+                <h1>Employee Performance Dashboard</h1>
+                <div class="summary-cards">
+                    <div class="card">
+                        <h3>Total Employees</h3>
+                        <p class="value" style="color: green;">5</p>
+                    </div>
+                    <div class="card">
+                        <h3>Average Score</h3>
+                        <p class="value" style="color: green;">87.6</p>
+                    </div>
+                    <div class="card">
+                        <h3>Top Performer</h3>
+                        <p class="value" style="color: green;">Charlie Wilson</p>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="performanceChart"></canvas>
+                </div>
+                <script>
+                    const ctx = document.getElementById('performanceChart').getContext('2d');
+                    new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: ['John Doe', 'Jane Smith', 'Bob Johnson', 'Alice Brown', 'Charlie Wilson'],
+                            datasets: [{
+                                label: 'Performance Score',
+                                data: [85, 92, 78, 88, 95],
+                                backgroundColor: [
+                                    'rgba(255, 99, 132, 0.2)',
+                                    'rgba(54, 162, 235, 0.2)',
+                                    'rgba(255, 206, 86, 0.2)',
+                                    'rgba(75, 192, 192, 0.2)',
+                                    'rgba(153, 102, 255, 0.2)'
+                                ],
+                                borderColor: [
+                                    'rgba(255, 99, 132, 1)',
+                                    'rgba(54, 162, 235, 1)',
+                                    'rgba(255, 206, 86, 1)',
+                                    'rgba(75, 192, 192, 1)',
+                                    'rgba(153, 102, 255, 1)'
+                                ],
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            plugins: {
+                                title: {
+                                    display: true,
+                                    text: 'Employee Performance Scores'
+                                }
+                            },
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    max: 100
+                                }
+                            }
+                        }
+                    });
+                </script>
+            </div>
+            <div id="payroll" class="page">
+                <div class="payroll-container">
+                    <div class="page-header">
+                        <h1>Payroll Working Sheet</h1>
+                        <p>Manage employee payroll details and calculations</p>
+                    </div>
+                    <form action="/hr/payroll" method="post">
+                        <div class="payroll-table-container">
+                            <table class="payroll-table">
+                                <thead>
+                                    <tr>
+                                        <th>Sl No</th>
+                                        <th>Employee Name</th>
+                                        <th>Days Working</th>
+                                        <th>Leave</th>
+                                        <th>Govt Holiday</th>
+                                        <th>Sunday</th>
+                                        <th>Training</th>
+                                        <th>Total Working Days</th>
+                                        <th>Basic Salary</th>
+                                        <th>Allowances</th>
+                                        <th>Deductions</th>
+                                        <th>Total CTC</th>
+                                        <th>Payment Mode</th>
+                                        <th>Net Salary</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><input type="text" name="sl_no_1" value="1" class="form-input"></td>
+                                        <td><input type="text" name="employee_name_1" class="form-input"></td>
+                                        <td><input type="number" name="days_working_1" class="form-input"></td>
+                                        <td><input type="number" name="leave_1" class="form-input"></td>
+                                        <td><input type="number" name="govt_holiday_1" class="form-input"></td>
+                                        <td><input type="number" name="sunday_1" class="form-input"></td>
+                                        <td><input type="number" name="training_1" class="form-input"></td>
+                                        <td><input type="number" name="total_working_days_1" class="form-input"></td>
+                                        <td><input type="number" name="basic_salary_1" step="0.01" class="form-input"></td>
+                                        <td><input type="number" name="allowances_1" step="0.01" class="form-input"></td>
+                                        <td><input type="number" name="deductions_1" step="0.01" class="form-input"></td>
+                                        <td><input type="number" name="total_ctc_1" step="0.01" class="form-input"></td>
+                                        <td>
+                                            <select name="payment_mode_1" class="form-select">
+                                                <option value="Bank Transfer">Bank Transfer</option>
+                                                <option value="Cheque">Cheque</option>
+                                                <option value="Cash">Cash</option>
+                                            </select>
+                                        </td>
+                                        <td><input type="number" name="net_salary_1" step="0.01" class="form-input"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="text" name="sl_no_2" value="2" class="form-input"></td>
+                                        <td><input type="text" name="employee_name_2" class="form-input"></td>
+                                        <td><input type="number" name="days_working_2" class="form-input"></td>
+                                        <td><input type="number" name="leave_2" class="form-input"></td>
+                                        <td><input type="number" name="govt_holiday_2" class="form-input"></td>
+                                        <td><input type="number" name="sunday_2" class="form-input"></td>
+                                        <td><input type="number" name="training_2" class="form-input"></td>
+                                        <td><input type="number" name="total_working_days_2" class="form-input"></td>
+                                        <td><input type="number" name="basic_salary_2" step="0.01" class="form-input"></td>
+                                        <td><input type="number" name="allowances_2" step="0.01" class="form-input"></td>
+                                        <td><input type="number" name="deductions_2" step="0.01" class="form-input"></td>
+                                        <td><input type="number" name="total_ctc_2" step="0.01" class="form-input"></td>
+                                        <td>
+                                            <select name="payment_mode_2" class="form-select">
+                                                <option value="Bank Transfer">Bank Transfer</option>
+                                                <option value="Cheque">Cheque</option>
+                                                <option value="Cash">Cash</option>
+                                            </select>
+                                        </td>
+                                        <td><input type="number" name="net_salary_2" step="0.01" class="form-input"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="text" name="sl_no_3" value="3" class="form-input"></td>
+                                        <td><input type="text" name="employee_name_3" class="form-input"></td>
+                                        <td><input type="number" name="days_working_3" class="form-input"></td>
+                                        <td><input type="number" name="leave_3" class="form-input"></td>
+                                        <td><input type="number" name="govt_holiday_3" class="form-input"></td>
+                                        <td><input type="number" name="sunday_3" class="form-input"></td>
+                                        <td><input type="number" name="training_3" class="form-input"></td>
+                                        <td><input type="number" name="total_working_days_3" class="form-input"></td>
+                                        <td><input type="number" name="basic_salary_3" step="0.01" class="form-input"></td>
+                                        <td><input type="number" name="allowances_3" step="0.01" class="form-input"></td>
+                                        <td><input type="number" name="deductions_3" step="0.01" class="form-input"></td>
+                                        <td><input type="number" name="total_ctc_3" step="0.01" class="form-input"></td>
+                                        <td>
+                                            <select name="payment_mode_3" class="form-select">
+                                                <option value="Bank Transfer">Bank Transfer</option>
+                                                <option value="Cheque">Cheque</option>
+                                                <option value="Cash">Cash</option>
+                                            </select>
+                                        </td>
+                                        <td><input type="number" name="net_salary_3" step="0.01" class="form-input"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="text" name="sl_no_4" value="4" class="form-input"></td>
+                                        <td><input type="text" name="employee_name_4" class="form-input"></td>
+                                        <td><input type="number" name="days_working_4" class="form-input"></td>
+                                        <td><input type="number" name="leave_4" class="form-input"></td>
+                                        <td><input type="number" name="govt_holiday_4" class="form-input"></td>
+                                        <td><input type="number" name="sunday_4" class="form-input"></td>
+                                        <td><input type="number" name="training_4" class="form-input"></td>
+                                        <td><input type="number" name="total_working_days_4" class="form-input"></td>
+                                        <td><input type="number" name="basic_salary_4" step="0.01" class="form-input"></td>
+                                        <td><input type="number" name="allowances_4" step="0.01" class="form-input"></td>
+                                        <td><input type="number" name="deductions_4" step="0.01" class="form-input"></td>
+                                        <td><input type="number" name="total_ctc_4" step="0.01" class="form-input"></td>
+                                        <td>
+                                            <select name="payment_mode_4" class="form-select">
+                                                <option value="Bank Transfer">Bank Transfer</option>
+                                                <option value="Cheque">Cheque</option>
+                                                <option value="Cash">Cash</option>
+                                            </select>
+                                        </td>
+                                        <td><input type="number" name="net_salary_4" step="0.01" class="form-input"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="text" name="sl_no_5" value="5" class="form-input"></td>
+                                        <td><input type="text" name="employee_name_5" class="form-input"></td>
+                                        <td><input type="number" name="days_working_5" class="form-input"></td>
+                                        <td><input type="number" name="leave_5" class="form-input"></td>
+                                        <td><input type="number" name="govt_holiday_5" class="form-input"></td>
+                                        <td><input type="number" name="sunday_5" class="form-input"></td>
+                                        <td><input type="number" name="training_5" class="form-input"></td>
+                                        <td><input type="number" name="total_working_days_5" class="form-input"></td>
+                                        <td><input type="number" name="basic_salary_5" step="0.01" class="form-input"></td>
+                                        <td><input type="number" name="allowances_5" step="0.01" class="form-input"></td>
+                                        <td><input type="number" name="deductions_5" step="0.01" class="form-input"></td>
+                                        <td><input type="number" name="total_ctc_5" step="0.01" class="form-input"></td>
+                                        <td>
+                                            <select name="payment_mode_5" class="form-select">
+                                                <option value="Bank Transfer">Bank Transfer</option>
+                                                <option value="Cheque">Cheque</option>
+                                                <option value="Cash">Cash</option>
+                                            </select>
+                                        </td>
+                                        <td><input type="number" name="net_salary_5" step="0.01" class="form-input"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn-submit">Submit Payroll</button>
+                            <button type="button" class="btn-cancel">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div id="records" class="page">
+                <div class="container">
+                    <h1>Employee Records</h1>
+
+                    <h2>Job Requirements (Hiring Records)</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Job Title</th>
+                                <th>Department</th>
+                                <th>Vacancies</th>
+                                <th>Employment Type</th>
+                                <th>Work Location</th>
+                                <th>Status</th>
+                                <th>Created At</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+
+                    <h2>Existing Employees</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Department</th>
+                                <th>Role</th>
+                                <th>Employee ID</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script src="script.js"></script>
+
+</body>
+</html>

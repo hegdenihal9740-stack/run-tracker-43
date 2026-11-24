@@ -1,0 +1,104 @@
+{
+  "source": "code-archive",
+  "archive": "manager_scratch-20261124T062211Z-1-001.zip",
+  "capabilities": [
+    {
+      "capability": "code",
+      "source": "Static HTML, CSS, and JavaScript dashboard in manager_scratch/",
+      "outcome": "Preserve the supplied dashboard and make it the first screen.",
+      "status": "pending",
+      "next_action": "Copy source files and verify the preview."
+    },
+    {
+      "capability": "schema",
+      "source": "No database schema or data-store configuration detected.",
+      "outcome": "No database migration required.",
+      "status": "not_applicable",
+      "next_action": "None."
+    },
+    {
+      "capability": "records",
+      "source": "No database or record export; sample rows are embedded in the static HTML.",
+      "outcome": "Preserve embedded sample content as supplied; no external records to import.",
+      "status": "pending",
+      "next_action": "Verify embedded sample content renders."
+    },
+    {
+      "capability": "auth_identities",
+      "source": "No authentication or user export detected.",
+      "outcome": "No account migration required.",
+      "status": "not_applicable",
+      "next_action": "None."
+    },
+    {
+      "capability": "authorization",
+      "source": "No roles or access-control rules detected.",
+      "outcome": "No authorization migration required.",
+      "status": "not_applicable",
+      "next_action": "None."
+    },
+    {
+      "capability": "uploaded_file_bytes",
+      "source": "No uploaded media or document files detected.",
+      "outcome": "No stored file bytes to migrate.",
+      "status": "not_applicable",
+      "next_action": "None."
+    },
+    {
+      "capability": "external_providers",
+      "source": "Google Fonts, Font Awesome, and Chart.js CDN references in the HTML.",
+      "outcome": "Keep the supplied CDN references unchanged.",
+      "status": "pending",
+      "next_action": "Verify dashboard resources load in the preview."
+    },
+    {
+      "capability": "public_endpoints",
+      "source": "No API endpoints detected; the payroll form posts to /hr/payroll, for which no handler was supplied.",
+      "outcome": "No endpoint implementation to migrate; preserve the source behavior and flag the unimplemented payroll destination.",
+      "status": "pending",
+      "next_action": "Report that payroll submission has no supplied server endpoint."
+    },
+    {
+      "capability": "callbacks",
+      "source": "None detected.",
+      "outcome": "No callbacks to migrate.",
+      "status": "not_applicable",
+      "next_action": "None."
+    },
+    {
+      "capability": "webhooks",
+      "source": "None detected.",
+      "outcome": "No webhooks to migrate.",
+      "status": "not_applicable",
+      "next_action": "None."
+    },
+    {
+      "capability": "schedules",
+      "source": "None detected.",
+      "outcome": "No scheduled jobs to migrate.",
+      "status": "not_applicable",
+      "next_action": "None."
+    },
+    {
+      "capability": "secrets",
+      "source": "No environment variables or secret configuration detected.",
+      "outcome": "No secret values required.",
+      "status": "not_applicable",
+      "next_action": "None."
+    },
+    {
+      "capability": "cutover",
+      "source": "No existing deployment or external callers identified.",
+      "outcome": "No production cutover performed.",
+      "status": "not_applicable",
+      "next_action": "None."
+    },
+    {
+      "capability": "verification",
+      "source": "Preview not yet exercised.",
+      "outcome": "Pending browser verification of the dashboard and representative interactions.",
+      "status": "pending",
+      "next_action": "Verify navigation, hiring tabs/form, and payment calculation in the preview."
+    }
+  ]
+}
