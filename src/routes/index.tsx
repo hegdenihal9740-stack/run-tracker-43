@@ -3,17 +3,17 @@ import { createFileRoute } from "@tanstack/react-router";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Manager Software Dashboard" },
+      { title: "HR Management Dashboard" },
       {
         name: "description",
         content:
-          "A business dashboard for purchasing, sales, inventory, finance, and workforce tasks.",
+          "Manage hiring, employee performance, payroll, and personnel records in one HR workspace.",
       },
-      { property: "og:title", content: "Manager Software Dashboard" },
+      { property: "og:title", content: "HR Management Dashboard" },
       {
         property: "og:description",
         content:
-          "A business dashboard for purchasing, sales, inventory, finance, and workforce tasks.",
+          "Manage hiring, employee performance, payroll, and personnel records in one HR workspace.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -28,7 +28,7 @@ function Index() {
       <iframe
         className="block h-full w-full border-0"
         src="/manager/index.html"
-        title="Manager Software Dashboard"
+        title="HR Management Dashboard"
         sandbox="allow-scripts allow-same-origin allow-forms"
       />
     </main>

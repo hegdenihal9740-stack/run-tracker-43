@@ -25,6 +25,7 @@ function initNavigation() {
                 const selectedPage = document.getElementById(pageId);
                 if (selectedPage) {
                     selectedPage.classList.add('active');
+                if (pageId === 'performance') initPerformanceChart();
                     if (addButton) {
                         addButton.style.display = 'none';
                     }
@@ -62,50 +63,6 @@ function initNavigation() {
     });
 }
 
-// Function to calculate stock totals
-function calculateStockTotals() {
-    const table = document.querySelector('#stock .table-container table');
-    if (!table) return;
-    const tbody = table.querySelector('tbody');
-    const rows = tbody.querySelectorAll('tr');
-    let totalPurchase = 0;
-    let totalPurchaseReturn = 0;
-    let totalSales = 0;
-    let totalSalesReturn = 0;
-    let totalClosing = 0;
-    let totalTotalStock = 0;
-    rows.forEach(row => {
-        const cells = row.querySelectorAll('td');
-        const purchaseText = cells[2].textContent.trim();
-        const purchase = parseInt(purchaseText) || 0;
-        totalPurchase += purchase;
-        const returnText = cells[3].textContent.trim();
-        const returnVal = parseInt(returnText) || 0;
-        totalPurchaseReturn += returnVal;
-        const salesText = cells[5].textContent.trim();
-        const sales = parseInt(salesText) || 0;
-        totalSales += sales;
-        const salesReturnText = cells[6].textContent.trim();
-        const salesReturn = parseInt(salesReturnText) || 0;
-        totalSalesReturn += salesReturn;
-        const closingText = cells[7].textContent.trim();
-        const closing = parseInt(closingText) || 0;
-        totalClosing += closing;
-        totalTotalStock += purchase - returnVal;
-    });
-    const totalsRow = table.querySelector('thead .totals-row');
-    const ths = totalsRow.querySelectorAll('th');
-    ths[0].textContent = 'Total Items: ' + rows.length;
-    ths[1].textContent = 'Total Opening Stock: 0 KG';
-    ths[2].textContent = 'Total Purchase: ' + totalPurchase + ' KG';
-    ths[3].textContent = 'Total Purchase Return: ' + totalPurchaseReturn + ' KG';
-    ths[4].textContent = 'Total Stock: ' + totalTotalStock + ' KG';
-    ths[5].textContent = 'Total Sales: ' + totalSales + ' KG';
-    ths[6].textContent = 'Total Sales Return: 0 KG';
-    ths[7].textContent = 'Total Closing Stock: ' + totalClosing + ' KG';
-    ths[8].textContent = 'N/A';
-}
-
 // Function to handle tab switching in hiring page
 function initHiringTabs() {
     const tabButtons = document.querySelectorAll('.tab-button');
@@ -129,6 +86,56 @@ function initHiringTabs() {
             }
         });
     });
+}
+
+function initPerformanceChart() {
+    const canvas = document.getElementById('performanceChart');
+    const chartLibrary = window.Chart;
+    if (!canvas || canvas.dataset.chartInitialized === 'true' || typeof chartLibrary !== 'function') return;
+
+    const context = canvas.getContext('2d');
+    if (!context) return;
+
+    new chartLibrary(context, {
+        type: 'bar',
+        data: {
+            labels: ['John Doe', 'Jane Smith', 'Bob Johnson', 'Alice Brown', 'Charlie Wilson'],
+            datasets: [{
+                label: 'Performance Score',
+                data: [85, 92, 78, 88, 95],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Employee Performance Scores'
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 100
+                }
+            }
+        }
+    });
+    canvas.dataset.chartInitialized = 'true';
 }
 
 // Function to handle Create Job Requirement form
@@ -191,117 +198,11 @@ function initCreateJobForm() {
     });
 }
 
-function initPaymentTables() {
-    ['purchase-payment', 'sales-payment'].forEach(pageId => {
-        const page = document.getElementById(pageId);
-        const table = page?.querySelector('#paymentTable');
-        const tableBody = table?.querySelector('tbody');
-        const totalsRow = page?.querySelector('#grandTotalRow');
-        if (!page || !table || !tableBody || !totalsRow) return;
-
-        const updateRow = row => {
-            const totalInput = row.querySelector('td:nth-child(4) input');
-            const paidInput = row.querySelector('td:nth-child(5) input');
-            const balanceInput = row.querySelector('td:nth-child(6) input');
-            if (!totalInput || !paidInput || !balanceInput) return;
-            const balance = (parseFloat(totalInput.value) || 0) - (parseFloat(paidInput.value) || 0);
-            balanceInput.value = balance.toFixed(2);
-        };
-
-        const updateTotals = () => {
-            let grandTotal = 0;
-            let grandPaid = 0;
-            let grandBalance = 0;
-            table.querySelectorAll('tbody tr').forEach(row => {
-                grandTotal += parseFloat(row.querySelector('td:nth-child(4) input')?.value) || 0;
-                grandPaid += parseFloat(row.querySelector('td:nth-child(5) input')?.value) || 0;
-                grandBalance += parseFloat(row.querySelector('td:nth-child(6) input')?.value) || 0;
-            });
-            const totalCell = totalsRow.querySelector('.total-amount');
-            const paidCell = totalsRow.querySelector('.paid-amount');
-            const balanceCell = totalsRow.querySelector('.balance-amount');
-            if (totalCell && paidCell && balanceCell) {
-                totalCell.textContent = grandTotal.toFixed(2);
-                paidCell.textContent = grandPaid.toFixed(2);
-                balanceCell.textContent = grandBalance.toFixed(2);
-            }
-        };
-
-        const addRow = () => {
-            const newRow = document.createElement('tr');
-            ['date', 'text', 'text', 'number', 'number', 'number'].forEach((type, index) => {
-                const cell = document.createElement('td');
-                const input = document.createElement('input');
-                input.type = type;
-                input.className = 'form';
-                if (index >= 3) input.step = '0.01';
-                if (index === 5) input.readOnly = true;
-                cell.appendChild(input);
-                newRow.appendChild(cell);
-            });
-            tableBody.appendChild(newRow);
-            newRow.querySelector('input')?.focus();
-        };
-
-        page.addEventListener('input', event => {
-            const input = event.target;
-            if (!(input instanceof HTMLInputElement) || !table.contains(input)) return;
-            const row = input.closest('tr');
-            if (!row) return;
-            updateRow(row);
-            updateTotals();
-        });
-
-        page.addEventListener('keydown', event => {
-            const activeElement = document.activeElement;
-            if (!(activeElement instanceof HTMLInputElement) || !table.contains(activeElement)) return;
-            const currentCell = activeElement.closest('td');
-            const currentRow = currentCell?.parentElement;
-            if (!currentCell || !currentRow) return;
-            const cells = Array.from(currentRow.querySelectorAll('td'));
-            const currentIndex = cells.indexOf(currentCell);
-            const focusInput = cell => cell?.querySelector('input')?.focus();
-            switch (event.key) {
-                case 'ArrowRight':
-                    event.preventDefault();
-                    if (currentIndex < cells.length - 1) focusInput(cells[currentIndex + 1]);
-                    break;
-                case 'ArrowLeft':
-                    event.preventDefault();
-                    if (currentIndex > 0) focusInput(cells[currentIndex - 1]);
-                    break;
-                case 'ArrowDown':
-                    event.preventDefault();
-                    focusInput(currentRow.nextElementSibling);
-                    break;
-                case 'ArrowUp':
-                    event.preventDefault();
-                    focusInput(currentRow.previousElementSibling);
-                    break;
-                case 'Enter':
-                    event.preventDefault();
-                    if (currentIndex < cells.length - 1) {
-                        focusInput(cells[currentIndex + 1]);
-                    } else if (currentRow.nextElementSibling) {
-                        focusInput(currentRow.nextElementSibling);
-                    } else {
-                        addRow();
-                    }
-                    break;
-            }
-        });
-
-        updateTotals();
-    });
-}
-
 // Initialize the application when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     initNavigation();
-    calculateStockTotals();
     initHiringTabs();
     initCreateJobForm();
-    initPaymentTables();
 
     // Handle sidebar title click to show dashboard
     const sidebarTitle = document.getElementById('sidebar-title');
@@ -317,21 +218,11 @@ document.addEventListener('DOMContentLoaded', () => {
         // Hide all pages
         pages.forEach(page => page.classList.remove('active'));
 
-        // Show dashboard page
-        const dashboardPage = document.getElementById('dashboard');
-        dashboardPage.classList.add('active');
+        // Return to the HR landing page
+        const hiringPage = document.getElementById('hiring');
+        if (hiringPage) hiringPage.classList.add('active');
 
         // Update page title
-        pageTitle.textContent = 'Dashboard';
-
-        // Hide add button
-        if (addButton) {
-            addButton.style.display = 'none';
-        }
-
-        // Reset layout to normal
-        document.querySelector('.sidebar').style.display = 'block';
-        document.querySelector('.main-content').style.marginLeft = '250px';
-        document.querySelector('.main-content').style.width = 'auto';
+        pageTitle.textContent = 'Hiring';
     });
 });
